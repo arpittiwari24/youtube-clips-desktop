@@ -43,7 +43,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_AUTH_API_URL: ${{ secrets.VITE_AUTH_API_URL }}
           VITE_CAPTION_API_URL: ${{ secrets.VITE_CAPTION_API_URL }}
-          CSC_IDENTITY_AUTO_DISCOVERY: false
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: npm run dist:mac -- --publish always
         continue-on-error: true
 
