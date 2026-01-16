@@ -1,6 +1,6 @@
 {
   "name": "youtube-clips-desktop",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Desktop app for creating YouTube clips with subtitles",
   "main": "dist/main/index.js",
   "type": "module",
@@ -95,16 +95,30 @@
     "afterSign": "scripts/notarize.cjs",
     "dmg": {
       "sign": false,
+      "title": "YouTube Clips ${version}",
       "contents": [
         {
           "x": 130,
-          "y": 220
+          "y": 220,
+          "type": "file"
         },
         {
           "x": 410,
           "y": 220,
           "type": "link",
           "path": "/Applications"
+        },
+        {
+          "x": 270,
+          "y": 350,
+          "type": "file",
+          "path": "resources/OPEN-APP-MACOS.command"
+        },
+        {
+          "x": 270,
+          "y": 420,
+          "type": "file",
+          "path": "resources/README-MACOS.txt"
         }
       ]
     },
