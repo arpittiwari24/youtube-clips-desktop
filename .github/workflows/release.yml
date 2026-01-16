@@ -1,0 +1,44 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Download binaries
+        run: npm run download-binaries
+
+      - name: Build app
+        run: npm run build
+
+      - name: Build and release for macOS
+        if: matrix.os == 'macos-latest'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run dist:mac -- --publish always
+
+      - name: Build and release for Windows
+        if: matrix.os == 'windows-latest'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run dist:win -- --publish always

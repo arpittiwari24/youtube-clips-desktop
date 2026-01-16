@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+release/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Binaries (download these separately)
+resources/bin/mac/yt-dlp
+resources/bin/mac/ffmpeg
+resources/bin/win/yt-dlp.exe
+resources/bin/win/ffmpeg.exe
+
+# Temp files
+*.tmp
+*.temp
