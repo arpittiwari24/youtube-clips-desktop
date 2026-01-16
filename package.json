@@ -76,7 +76,7 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "YOUR_GITHUB_USERNAME",
+      "owner": "arpittiwari24",
       "repo": "youtube-clips-desktop"
     },
     "mac": {
@@ -106,6 +106,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/youtube-clips-desktop.git"
+    "url": "https://github.com/arpittiwari24/youtube-clips-desktop.git"
   }
 }
