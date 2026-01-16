@@ -187,6 +187,56 @@ Use semantic versioning: `MAJOR.MINOR.PATCH`
 
 ---
 
+## 🍎 macOS Users - IMPORTANT
+
+### "App is Damaged or Modified" Warning
+
+macOS users will see a security warning because the app is **not code-signed**. This is normal for free/open-source apps.
+
+#### Method 1: Right-Click to Open (Easiest)
+1. Download and install the app
+2. **Don't double-click** the app icon
+3. **Right-click** (or Control+click) on "YouTube Clips" in Applications
+4. Select **"Open"** from the menu
+5. Click **"Open"** in the dialog that appears
+6. The app will now open and remember this choice
+
+#### Method 2: Use Terminal Command
+```bash
+# Download this helper script from the GitHub repo
+curl -O https://raw.githubusercontent.com/arpittiwari24/youtube-clips-desktop/main/scripts/macos-open-unsigned.sh
+
+# Make it executable
+chmod +x macos-open-unsigned.sh
+
+# Run it (removes quarantine attribute)
+./macos-open-unsigned.sh
+```
+
+#### Method 3: Manual Terminal Command
+```bash
+# Remove quarantine from the app
+xattr -cr "/Applications/YouTube Clips.app"
+
+# Then open normally
+open "/Applications/YouTube Clips.app"
+```
+
+### Why This Happens
+- Code signing requires an Apple Developer account ($99/year)
+- Free/open-source apps often distribute unsigned
+- macOS Gatekeeper blocks unsigned apps by default
+- The methods above safely bypass this for apps you trust
+
+### For Developers: Getting Code Signing
+If you want to distribute a signed app:
+1. Enroll in Apple Developer Program ($99/year)
+2. Get a "Developer ID Application" certificate
+3. Set up notarization with Apple
+4. Update package.json with signing configuration
+
+---
+
 ## 🐛 Troubleshooting
 
 ### Build fails on macOS

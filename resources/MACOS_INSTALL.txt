@@ -1,0 +1,35 @@
+==========================================
+YouTube Clips - macOS Installation Guide
+==========================================
+
+⚠️ IMPORTANT: macOS Security Warning
+-------------------------------------
+You will see a warning that the app is "damaged or modified."
+This is normal because the app is not code-signed.
+
+HOW TO OPEN THE APP:
+--------------------
+
+Method 1 (Easiest):
+  1. Install the app to Applications folder
+  2. DON'T double-click the app icon
+  3. RIGHT-CLICK on "YouTube Clips" in Applications
+  4. Select "Open" from the menu
+  5. Click "Open" in the dialog
+  6. The app will now work normally!
+
+Method 2 (Terminal):
+  1. Open Terminal
+  2. Run: xattr -cr "/Applications/YouTube Clips.app"
+  3. Run: open "/Applications/YouTube Clips.app"
+
+WHY THIS HAPPENS:
+-----------------
+- Code signing requires Apple Developer account ($99/year)
+- This free app is distributed unsigned
+- macOS Gatekeeper blocks unsigned apps by default
+- The methods above safely bypass this for apps you trust
+
+Need help? Visit: https://github.com/arpittiwari24/youtube-clips-desktop
+
+==========================================
