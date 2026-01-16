@@ -65,7 +65,6 @@ export interface User {
   email: string;
   name: string | null;
   premium: boolean;
-  planName?: string;
 }
 
 export interface AuthResponse {
