@@ -37,14 +37,18 @@ function downloadFile(url, destPath) {
         // Handle redirects
         if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
           file.close();
-          fs.unlinkSync(destPath);
+          if (fs.existsSync(destPath)) {
+            fs.unlinkSync(destPath);
+          }
           request(response.headers.location);
           return;
         }
 
         if (response.statusCode !== 200) {
           file.close();
-          fs.unlinkSync(destPath);
+          if (fs.existsSync(destPath)) {
+            fs.unlinkSync(destPath);
+          }
           reject(new Error(`Failed to download: ${response.statusCode}`));
           return;
         }
@@ -57,7 +61,9 @@ function downloadFile(url, destPath) {
         });
       }).on('error', (err) => {
         file.close();
-        fs.unlinkSync(destPath);
+        if (fs.existsSync(destPath)) {
+          fs.unlinkSync(destPath);
+        }
         reject(err);
       });
     };
@@ -97,7 +103,9 @@ async function downloadAndExtractZip(url, destDir, binaryName) {
     }
 
     // Cleanup
-    fs.unlinkSync(zipPath);
+    if (fs.existsSync(zipPath)) {
+      fs.unlinkSync(zipPath);
+    }
   } catch (err) {
     console.error(`  Warning: Could not extract zip: ${err.message}`);
   }
