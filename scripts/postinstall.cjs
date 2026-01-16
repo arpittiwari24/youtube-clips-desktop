@@ -163,9 +163,35 @@ async function main() {
 
       const ffmpegPath = path.join(WIN_DIR, 'ffmpeg.exe');
       if (!fs.existsSync(ffmpegPath)) {
-        console.log('  ⚠ FFmpeg for Windows needs manual download');
-        console.log('    Download from: https://www.gyan.dev/ffmpeg/builds/');
-        console.log('    Extract ffmpeg.exe to: ' + WIN_DIR);
+        console.log('Downloading FFmpeg for Windows (this may take a minute)...');
+        const ffmpegZipUrl = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip';
+        const zipPath = path.join(WIN_DIR, 'ffmpeg-temp.zip');
+
+        await downloadFile(ffmpegZipUrl, zipPath);
+        console.log('  Extracting FFmpeg...');
+
+        // Extract using tar (available in Windows 10+)
+        try {
+          execSync(`tar -xf "${zipPath}" -C "${WIN_DIR}"`, { stdio: 'pipe' });
+
+          // Find and move ffmpeg.exe from nested directory
+          const extractedDir = path.join(WIN_DIR, 'ffmpeg-master-latest-win64-gpl', 'bin', 'ffmpeg.exe');
+          if (fs.existsSync(extractedDir)) {
+            fs.renameSync(extractedDir, ffmpegPath);
+          }
+
+          // Cleanup
+          fs.unlinkSync(zipPath);
+          const tempDir = path.join(WIN_DIR, 'ffmpeg-master-latest-win64-gpl');
+          if (fs.existsSync(tempDir)) {
+            fs.rmSync(tempDir, { recursive: true, force: true });
+          }
+
+          console.log('  ✓ FFmpeg downloaded');
+        } catch (err) {
+          console.error('  ⚠ Could not extract FFmpeg:', err.message);
+          console.log('    Download manually from: https://github.com/BtbN/FFmpeg-Builds/releases');
+        }
       } else {
         console.log('  ✓ FFmpeg already exists');
       }

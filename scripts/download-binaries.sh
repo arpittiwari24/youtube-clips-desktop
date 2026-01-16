@@ -31,33 +31,28 @@ echo "=== Downloading FFmpeg ==="
 
 # macOS FFmpeg
 echo "Downloading FFmpeg for macOS..."
-echo "Note: FFmpeg for macOS needs to be downloaded manually from https://evermeet.cx/ffmpeg/"
-echo "Place the 'ffmpeg' binary in: $RESOURCES_DIR/mac/ffmpeg"
-echo ""
-echo "Quick commands for macOS FFmpeg:"
-echo "  curl -L https://evermeet.cx/ffmpeg/getrelease/ffmpeg/zip -o /tmp/ffmpeg-mac.zip"
-echo "  unzip /tmp/ffmpeg-mac.zip -d $RESOURCES_DIR/mac/"
-echo "  chmod +x $RESOURCES_DIR/mac/ffmpeg"
-
-# Attempt automatic download for macOS
-if command -v brew &> /dev/null; then
-    echo ""
-    echo "Homebrew detected. You can also install ffmpeg system-wide with:"
-    echo "  brew install ffmpeg"
-fi
+curl -L https://evermeet.cx/ffmpeg/getrelease/ffmpeg/zip -o /tmp/ffmpeg-mac.zip
+unzip -q /tmp/ffmpeg-mac.zip -d /tmp/
+mv /tmp/ffmpeg "$RESOURCES_DIR/mac/ffmpeg"
+chmod +x "$RESOURCES_DIR/mac/ffmpeg"
+rm /tmp/ffmpeg-mac.zip
+echo "✓ FFmpeg for macOS downloaded"
 
 # Windows FFmpeg
-echo ""
-echo "For Windows FFmpeg:"
-echo "  1. Download from https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
-echo "  2. Extract and copy ffmpeg.exe to: $RESOURCES_DIR/win/ffmpeg.exe"
+echo "Downloading FFmpeg for Windows..."
+echo "  (This is a large file ~200MB, may take a minute...)"
+curl -L "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" -o /tmp/ffmpeg-win.zip
+unzip -q /tmp/ffmpeg-win.zip -d /tmp/
+mv /tmp/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe "$RESOURCES_DIR/win/ffmpeg.exe"
+rm -rf /tmp/ffmpeg-win.zip /tmp/ffmpeg-master-latest-win64-gpl
+echo "✓ FFmpeg for Windows downloaded"
 
 echo ""
 echo "=== Summary ==="
-echo "Binary locations:"
-echo "  macOS yt-dlp:  $RESOURCES_DIR/mac/yt-dlp"
-echo "  macOS FFmpeg:  $RESOURCES_DIR/mac/ffmpeg (manual download required)"
+echo "✓ All binaries downloaded successfully:"
+echo "  macOS yt-dlp:   $RESOURCES_DIR/mac/yt-dlp"
+echo "  macOS FFmpeg:   $RESOURCES_DIR/mac/ffmpeg"
 echo "  Windows yt-dlp: $RESOURCES_DIR/win/yt-dlp.exe"
-echo "  Windows FFmpeg: $RESOURCES_DIR/win/ffmpeg.exe (manual download required)"
+echo "  Windows FFmpeg: $RESOURCES_DIR/win/ffmpeg.exe"
 echo ""
 echo "Done!"
