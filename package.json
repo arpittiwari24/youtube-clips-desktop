@@ -92,7 +92,7 @@
       "darkModeSupport": true,
       "identity": null
     },
-    "afterSign": "scripts/notarize.js",
+    "afterSign": "scripts/notarize.cjs",
     "dmg": {
       "sign": false,
       "contents": [
