@@ -38,7 +38,11 @@ exports.default = async function notarizing(context) {
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`✅ Notarization successful! (took ${duration}s)`);
   } catch (error) {
-    console.error('❌ Notarization failed:', error);
-    throw error;
+    console.error('❌ Notarization failed:', error.message || error);
+
+    // Don't fail the build - allow signed (but not notarized) builds to be released
+    // Users will see a Gatekeeper warning but can still install the app
+    console.warn('⚠️  Continuing with signed-only build (not notarized)');
+    console.warn('⚠️  This is usually due to Apple server issues - try re-releasing later');
   }
 };
