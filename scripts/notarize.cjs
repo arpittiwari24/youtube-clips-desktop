@@ -25,13 +25,18 @@ exports.default = async function notarizing(context) {
   console.log(`   Apple ID: ${appleId}`);
 
   try {
+    const startTime = Date.now();
+
     await notarize({
+      tool: 'notarytool',
       appPath: appPath,
       appleId: appleId,
       appleIdPassword: appleIdPassword,
       teamId: teamId,
     });
-    console.log('✅ Notarization successful!');
+
+    const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log(`✅ Notarization successful! (took ${duration}s)`);
   } catch (error) {
     console.error('❌ Notarization failed:', error);
     throw error;
