@@ -73,6 +73,7 @@ jobs:
           VITE_CAPTION_API_URL: ${{ secrets.VITE_CAPTION_API_URL }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: npm run dist:mac -- --publish always
         continue-on-error: true
