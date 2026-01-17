@@ -78,15 +78,6 @@ jobs:
         run: npm run dist:mac -- --publish always
         continue-on-error: true
 
-      - name: Fallback - Build ZIP only for macOS
-        if: matrix.os == 'macos-latest' && failure()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_AUTH_API_URL: ${{ secrets.VITE_AUTH_API_URL }}
-          VITE_CAPTION_API_URL: ${{ secrets.VITE_CAPTION_API_URL }}
-          CSC_IDENTITY_AUTO_DISCOVERY: false
-        run: npm run dist:mac -- --mac zip --publish always
-
       - name: Build and release for Windows
         if: matrix.os == 'windows-latest'
         env:
